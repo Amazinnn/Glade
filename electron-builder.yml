@@ -1,5 +1,5 @@
 appId: com.ailife.assistant
-productName: AI生活记录助手
+productName: Glade
 directories:
   buildResources: build
   output: release

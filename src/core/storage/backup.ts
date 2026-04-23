@@ -1,7 +1,6 @@
-// src/core/storage/backup.ts
-import { existsSync, mkdirSync, copyFileSync, readdirSync } from 'fs';
-import { join } from 'path';
-import { getDataDir } from './markdown.js';
+import { copyFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'fs';
+import { dirname, join, relative } from 'path';
+import { ensureDataLayout, getDataDir } from './markdown.js';
 
 function getBackupDir(): string {
   const backup = join(getDataDir(), '.aisnap');
@@ -9,29 +8,32 @@ function getBackupDir(): string {
   return backup;
 }
 
+function copyTree(source: string, target: string): void {
+  if (!existsSync(source)) return;
+  const stats = statSync(source);
+  if (stats.isDirectory()) {
+    mkdirSync(target, { recursive: true });
+    for (const item of readdirSync(source)) {
+      copyTree(join(source, item), join(target, item));
+    }
+    return;
+  }
+  mkdirSync(dirname(target), { recursive: true });
+  copyFileSync(source, target);
+}
+
 export function createBackup(): string {
+  ensureDataLayout();
   const backupDir = getBackupDir();
   const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
   const backupPath = join(backupDir, `backup-${timestamp}`);
   mkdirSync(backupPath, { recursive: true });
 
   const dataDir = getDataDir();
-  const dbPath = join(dataDir, 'ai-life.db');
-  if (existsSync(dbPath)) {
-    copyFileSync(dbPath, join(backupPath, 'ai-life.db'));
-  }
-
-  const logsDir = join(dataDir, 'logs');
-  const convDir = join(dataDir, 'conversations');
-  for (const dir of [logsDir, convDir]) {
-    if (!existsSync(dir)) continue;
-    const files = readdirSync(dir).filter(f => f.endsWith('.md'));
-    for (const file of files) {
-      const age = Date.now() - new Date(file).getTime();
-      if (age <= 7 * 86400000) {
-        copyFileSync(join(dir, file), join(backupPath, file));
-      }
-    }
+  for (const item of ['ai-life.db', 'journal', 'reviews', 'indexes', 'attachments']) {
+    const source = join(dataDir, item);
+    const target = join(backupPath, relative(dataDir, source));
+    copyTree(source, target);
   }
 
   return backupPath;
@@ -41,16 +43,15 @@ export function listBackups(): { path: string; date: string }[] {
   const backupDir = getBackupDir();
   if (!existsSync(backupDir)) return [];
   return readdirSync(backupDir)
-    .filter(d => d.startsWith('backup-'))
-    .map(d => ({ path: join(backupDir, d), date: d.replace('backup-', '') }))
+    .filter((dir) => dir.startsWith('backup-'))
+    .map((dir) => ({ path: join(backupDir, dir), date: dir.replace('backup-', '') }))
     .sort((a, b) => b.date.localeCompare(a.date));
 }
 
 export function restoreBackup(path: string): void {
   const dataDir = getDataDir();
-  const dbBackup = join(path, 'ai-life.db');
-  if (existsSync(dbBackup)) {
-    copyFileSync(dbBackup, join(dataDir, 'ai-life.db'));
+  for (const item of ['ai-life.db', 'journal', 'reviews', 'indexes', 'attachments']) {
+    copyTree(join(path, item), join(dataDir, item));
   }
 }
 

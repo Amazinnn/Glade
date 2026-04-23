@@ -1,9 +1,12 @@
-// src/cli/commands/log.ts
 import { Command } from 'commander';
-import { LogRepository } from '../../core/db/repositories/log.repository.js';
-import { appendEntry } from '../../core/storage/markdown.js';
+import { recordService } from '../../core/records/record.service.js';
+import { printError, printOk } from '../output.js';
 
-const repo = new LogRepository();
+interface LogListOptions {
+  date?: string;
+  since?: string;
+  limit?: string;
+}
 
 export function registerLogCommands(program: Command): void {
   const log = program.command('log').description('日志管理');
@@ -11,44 +14,61 @@ export function registerLogCommands(program: Command): void {
   log
     .command('new <content>')
     .description('新建日志')
-    .action((content: string) => {
-      const entry = repo.create(content);
-      const date = new Date(entry.createdAt).toISOString().slice(0, 10);
-      appendEntry(date, 'log', content);
-      console.log(JSON.stringify({ ok: true, id: entry.id }));
+    .option('--tags <tags>', '标签，逗号分隔')
+    .action((content: string, opts: { tags?: string }) => {
+      try {
+        const tags = opts.tags ? opts.tags.split(',').map((tag) => tag.trim()).filter(Boolean) : [];
+        const entry = recordService.createLog(content, tags);
+        printOk({ entry });
+      } catch (error) {
+        printError(error);
+      }
     });
 
   log
     .command('list')
+    .option('--date <date>', '按日期查看，格式 YYYY-MM-DD')
     .option('--since <ms>', '只看最近 ms 毫秒的日志')
     .option('--limit <n>', '最多返回条数', '100')
     .description('列出日志')
-    .action((opts) => {
-      const since = opts.since ? parseInt(opts.since) : undefined;
-      const limit = parseInt(opts.limit);
-      const entries = repo.list(since, limit);
-      console.log(JSON.stringify({ ok: true, entries }));
+    .action((opts: LogListOptions) => {
+      try {
+        const entries = recordService.listLogs({
+          date: opts.date,
+          since: opts.since ? Number(opts.since) : undefined,
+          limit: opts.limit ? Number(opts.limit) : 100,
+        });
+        printOk({ entries });
+      } catch (error) {
+        printError(error);
+      }
     });
 
   log
     .command('update <id> <content>')
-    .description('更新日志')
+    .description('更新日志索引内容，不改写 Markdown 历史块')
     .action((id: string, content: string) => {
-      const entry = repo.update(id, content);
-      if (entry) {
-        const date = new Date(entry.createdAt).toISOString().slice(0, 10);
-        appendEntry(date, 'log', `[UPDATE] ${content}`);
-        console.log(JSON.stringify({ ok: true, entry }));
-      } else {
-        console.log(JSON.stringify({ ok: false, error: 'Not found' }));
+      try {
+        const entry = recordService.updateLog(id, content);
+        if (!entry) {
+          printError(new Error('Record not found'), 'NOT_FOUND');
+          return;
+        }
+        printOk({ entry });
+      } catch (error) {
+        printError(error);
       }
     });
 
   log
     .command('delete <id>')
-    .description('删除日志')
+    .description('软删除日志')
     .action((id: string) => {
-      repo.delete(id);
-      console.log(JSON.stringify({ ok: true }));
+      try {
+        recordService.deleteRecord(id);
+        printOk({ id });
+      } catch (error) {
+        printError(error);
+      }
     });
 }

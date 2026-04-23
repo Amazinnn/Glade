@@ -1,6 +1,15 @@
 // src/shared/types.ts
 
-export type EventType = 'expense' | 'workout' | 'sleep' | 'task' | 'custom';
+export type RecordKind = 'log' | 'event';
+
+export type EventType =
+  | 'expense'
+  | 'task'
+  | 'health'
+  | 'study'
+  | 'custom'
+  | 'workout'
+  | 'sleep';
 
 export interface LogEntry {
   id: string;
@@ -9,6 +18,9 @@ export interface LogEntry {
   tags: string[];
   createdAt: number;
   updatedAt: number;
+  filePath?: string;
+  markdownAnchor?: string;
+  deletedAt?: number | null;
 }
 
 export interface EventEntry {
@@ -19,6 +31,42 @@ export interface EventEntry {
   tags: string[];
   createdAt: number;
   updatedAt: number;
+  filePath?: string;
+  markdownAnchor?: string;
+  deletedAt?: number | null;
+}
+
+export interface LifeRecord {
+  id: string;
+  kind: RecordKind;
+  eventType?: EventType;
+  content: string;
+  summary: string;
+  tags: string[];
+  metadata: Record<string, unknown>;
+  createdAt: number;
+  updatedAt: number;
+  filePath?: string;
+  markdownAnchor?: string;
+  deletedAt?: number | null;
+}
+
+export interface TimelineQuery {
+  date?: string;
+  since?: number;
+  limit?: number;
+  type?: RecordKind;
+  eventType?: EventType;
+  includeDeleted?: boolean;
+}
+
+export interface RecordSearchQuery {
+  query: string;
+  type?: RecordKind | EventType;
+  dateFrom?: string;
+  dateTo?: string;
+  tags?: string[];
+  limit?: number;
 }
 
 export interface Embedding {
@@ -59,6 +107,8 @@ export interface SearchResult {
   score: number;
   excerpt: string;
   filePath?: string;
+  markdownAnchor?: string;
+  createdAt?: number;
 }
 
 export interface AppConfig {

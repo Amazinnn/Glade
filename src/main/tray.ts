@@ -1,4 +1,3 @@
-// src/main/tray.ts
 import { Tray, Menu, nativeImage, app } from 'electron';
 import { join } from 'path';
 
@@ -14,13 +13,13 @@ export function createTray(mainWindow: Electron.BrowserWindow | null): void {
 
   const contextMenu = Menu.buildFromTemplate([
     { label: '显示窗口', click: () => mainWindow?.show() },
-    { label: '新建日志', click: () => mainWindow?.webContents.send('action:newLog') },
-    { label: 'AI 对话', click: () => mainWindow?.webContents.send('action:openAI') },
+    { label: '新建记录', click: () => mainWindow?.webContents.send('action:newLog') },
+    { label: '轻声整理', click: () => mainWindow?.webContents.send('action:openAI') },
     { type: 'separator' },
     { label: '退出', click: () => app.quit() },
   ]);
 
-  tray.setToolTip('AI 生活记录助手');
+  tray.setToolTip('Glade');
   tray.setContextMenu(contextMenu);
   tray.on('double-click', () => mainWindow?.show());
 }

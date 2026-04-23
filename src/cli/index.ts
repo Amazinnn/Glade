@@ -19,7 +19,7 @@ async function main() {
     createProvider(type, apiKey);
   }
 
-  program.name('ai-life').description('AI 生活记录助手').version('1.0.0');
+  program.name('glade').description('Glade - 本地优先的生活记录花园').version('1.0.0');
 
   registerLogCommands(program);
   registerEventCommands(program);

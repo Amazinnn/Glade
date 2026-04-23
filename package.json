@@ -1,28 +1,31 @@
 {
   "name": "ai-life-assistant",
   "version": "1.0.0",
-  "description": "本地 AI 生活记录助手（CLI + GUI）",
+  "description": "Glade - 本地优先的生活记录花园",
   "type": "module",
   "author": "",
-  "main": "out/main/index.js",
+  "main": "out/main/index.cjs",
   "bin": {
-    "ai-life": "out/cli/index.js"
+    "ai-life": "out/cli/index.js",
+    "glade": "out/cli/index.js"
   },
   "scripts": {
-    "dev": "electron-vite dev",
-    "build": "electron-vite build",
-    "package": "electron-vite build && electron-builder --win portable",
+    "dev": "node scripts/run-electron-vite.cjs dev",
+    "build": "node scripts/run-electron-vite.cjs build && tsc -p tsconfig.cli.json",
+    "package": "node scripts/run-electron-vite.cjs build && tsc -p tsconfig.cli.json && electron-builder --win portable",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "sql.js": "^1.10.0",
     "commander": "^12.0.0",
     "openai": "^4.50.0",
+    "sql.js": "^1.10.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.30.0",
     "@types/node": "^22.0.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "@types/uuid": "^10.0.0",
     "electron": "^33.0.0",
     "electron-builder": "^25.0.0",

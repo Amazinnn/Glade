@@ -1,7 +1,18 @@
-// src/preload/index.ts
 import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('api', {
+  record: {
+    createLog: (content: string, tags?: string[]) =>
+      ipcRenderer.invoke('record:createLog', content, tags),
+    listLogs: (query?: object) => ipcRenderer.invoke('record:listLogs', query),
+    createEvent: (type: string, content: string, metadata?: object, tags?: string[]) =>
+      ipcRenderer.invoke('record:createEvent', type, content, metadata, tags),
+    listTimeline: (query?: object) => ipcRenderer.invoke('record:listTimeline', query),
+    search: (query: object) => ipcRenderer.invoke('record:search', query),
+    getDailyMarkdown: (date?: string) => ipcRenderer.invoke('record:getDailyMarkdown', date),
+    openDailyMarkdown: (date?: string) => ipcRenderer.invoke('record:openDailyMarkdown', date),
+    delete: (id: string) => ipcRenderer.invoke('record:delete', id),
+  },
   log: {
     new: (content: string) => ipcRenderer.invoke('log:new', content),
     list: (since?: number) => ipcRenderer.invoke('log:list', since),
@@ -11,7 +22,7 @@ contextBridge.exposeInMainWorld('api', {
   event: {
     add: (type: string, content: string, metadata?: object, tags?: string[]) =>
       ipcRenderer.invoke('event:add', type, content, metadata, tags),
-    list: (type: string, since?: number) => ipcRenderer.invoke('event:list', type, since),
+    list: (type?: string, since?: number) => ipcRenderer.invoke('event:list', type, since),
     delete: (id: string) => ipcRenderer.invoke('event:delete', id),
   },
   ai: {

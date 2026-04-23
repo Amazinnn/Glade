@@ -4,19 +4,23 @@ import { resolve } from 'path';
 export default defineConfig({
   main: {
     build: {
+      lib: {
+        entry: resolve(__dirname, 'src/main/index.ts'),
+        formats: ['cjs'],
+      },
       rollupOptions: {
-        input: {
-          index: resolve(__dirname, 'src/main/index.ts'),
+        external: ['electron', 'sql.js'],
+        output: {
+          format: 'cjs',
         },
       },
     },
   },
   preload: {
     build: {
-      rollupOptions: {
-        input: {
-          index: resolve(__dirname, 'src/preload/index.ts'),
-        },
+      lib: {
+        entry: resolve(__dirname, 'src/preload/index.ts'),
+        formats: ['cjs'],
       },
     },
   },
