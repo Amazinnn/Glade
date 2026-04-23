@@ -4,9 +4,11 @@ import { scheduler } from '../core/scheduler/scheduler.js';
 import { getProvider } from '../core/ai/index.js';
 import { LogRepository } from '../core/db/repositories/log.repository.js';
 
-const logRepo = new LogRepository();
+let logRepo: LogRepository;
 
 export function registerScheduler(): void {
+  logRepo = new LogRepository();
+
   scheduler.register('evening-reminder', '晚安提醒', '0 22 * * *', () => {
     const windows = BrowserWindow.getAllWindows();
     windows.forEach(win => win.webContents.send('scheduler:prompt', {

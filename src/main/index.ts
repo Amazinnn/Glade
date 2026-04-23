@@ -8,8 +8,8 @@ import { createTray } from './tray.js';
 
 let mainWindow: BrowserWindow | null = null;
 
-app.whenReady().then(() => {
-  initDatabase(getDataDir());
+app.whenReady().then(async () => {
+  await initDatabase(getDataDir());
 
   mainWindow = new BrowserWindow({
     width: 1200,

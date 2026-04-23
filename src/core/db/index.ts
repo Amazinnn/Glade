@@ -1,29 +1,45 @@
 // src/core/db/index.ts
-import Database from 'better-sqlite3';
-import { readFileSync } from 'fs';
+import initSqlJs, { Database } from 'sql.js';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-let db: Database.Database;
+let db: Database;
+let dbPath: string;
 
-export function initDatabase(dataDir: string): Database.Database {
-  const dbPath = join(dataDir, 'ai-life.db');
-  db = new Database(dbPath);
-  db.pragma('journal_mode = WAL');
-  db.pragma('foreign_keys = ON');
+export async function initDatabase(dataDir: string): Promise<Database> {
+  dbPath = join(dataDir, 'ai-life.db');
+  const SQL = await initSqlJs({
+    locateFile: (file: string) => `https://sql.js.org/dist/${file}`,
+  });
+
+  if (existsSync(dbPath)) {
+    const buffer = readFileSync(dbPath);
+    db = new SQL.Database(buffer);
+  } else {
+    db = new SQL.Database();
+  }
 
   runMigrations(db);
+  saveDatabase();
   return db;
 }
 
-function runMigrations(db: Database.Database): void {
+function runMigrations(db: Database): void {
   const migration = readFileSync(join(__dirname, 'migrations', '001_initial.sql'), 'utf-8');
   db.exec(migration);
 }
 
-export function getDatabase(): Database.Database {
+export function saveDatabase(): void {
+  if (!db || !dbPath) return;
+  const data = db.export();
+  const buffer = Buffer.from(data);
+  writeFileSync(dbPath, buffer);
+}
+
+export function getDatabase(): Database {
   if (!db) throw new Error('Database not initialized');
   return db;
 }

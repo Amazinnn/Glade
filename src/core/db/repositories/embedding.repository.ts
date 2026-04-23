@@ -1,6 +1,6 @@
 // src/core/db/repositories/embedding.repository.ts
 import { v4 as uuid } from 'uuid';
-import { getDatabase } from '../index.js';
+import { getDatabase, saveDatabase } from '../index.js';
 import type { Embedding } from '../../../shared/types.js';
 
 export class EmbeddingRepository {
@@ -9,41 +9,65 @@ export class EmbeddingRepository {
     const now = Date.now();
     const id = uuid();
     const vectorBlob = Buffer.from(vector.buffer);
-    db.prepare(`
-      INSERT INTO embeddings (id, record_type, record_id, provider, model, vector, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-      ON CONFLICT(record_type, record_id, provider) DO UPDATE SET
-        model=excluded.model, vector=excluded.vector, created_at=excluded.created_at
-    `).run(id, recordType, recordId, provider, model, vectorBlob, now);
+
+    // Check if exists first
+    const stmt = db.prepare('SELECT id FROM embeddings WHERE record_type=? AND record_id=? AND provider=?');
+    stmt.bind([recordType, recordId, provider]);
+    const exists = stmt.step();
+    stmt.free();
+
+    if (exists) {
+      db.run('UPDATE embeddings SET model=?, vector=?, created_at=? WHERE record_type=? AND record_id=? AND provider=?',
+        [model, vectorBlob, now, recordType, recordId, provider]);
+    } else {
+      db.run('INSERT INTO embeddings (id, record_type, record_id, provider, model, vector, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [id, recordType, recordId, provider, model, vectorBlob, now]);
+    }
+    saveDatabase();
     return { id, recordType, recordId, provider, model, vector, createdAt: now };
   }
 
   getByRecord(recordType: 'log' | 'event', recordId: string, provider: string): Embedding | null {
     const db = getDatabase();
-    const row = db.prepare('SELECT * FROM embeddings WHERE record_type=? AND record_id=? AND provider=?').get(recordType, recordId, provider) as any;
-    if (!row) return null;
-    return {
-      id: row.id,
-      recordType: row.record_type as 'log' | 'event',
-      recordId: row.record_id,
-      provider: row.provider,
-      model: row.model,
-      vector: new Float32Array(row.vector.buffer),
-      createdAt: row.created_at,
-    };
+    const stmt = db.prepare('SELECT * FROM embeddings WHERE record_type=? AND record_id=? AND provider=?');
+    stmt.bind([recordType, recordId, provider]);
+    if (stmt.step()) {
+      const row = stmt.get();
+      stmt.free();
+      return {
+        id: row[0] as string,
+        recordType: row[1] as 'log' | 'event',
+        recordId: row[2] as string,
+        provider: row[3] as string,
+        model: row[4] as string,
+        vector: new Float32Array((row[5] as Buffer).buffer),
+        createdAt: row[6] as number,
+      };
+    }
+    stmt.free();
+    return null;
   }
 
   listByType(recordType: 'log' | 'event'): { recordId: string; vector: Float32Array; provider: string }[] {
     const db = getDatabase();
-    const rows = db.prepare('SELECT record_id, vector, provider FROM embeddings WHERE record_type=?').all(recordType) as any[];
-    return rows.map(row => ({
-      recordId: row.record_id,
-      vector: new Float32Array(row.vector.buffer),
-      provider: row.provider,
-    }));
+    const stmt = db.prepare('SELECT record_id, vector, provider FROM embeddings WHERE record_type=?');
+    stmt.bind([recordType]);
+    const results: { recordId: string; vector: Float32Array; provider: string }[] = [];
+    while (stmt.step()) {
+      const row = stmt.get();
+      results.push({
+        recordId: row[0] as string,
+        vector: new Float32Array((row[1] as Buffer).buffer),
+        provider: row[2] as string,
+      });
+    }
+    stmt.free();
+    return results;
   }
 
   deleteByRecord(recordType: 'log' | 'event', recordId: string): void {
-    getDatabase().prepare('DELETE FROM embeddings WHERE record_type=? AND record_id=?').run(recordType, recordId);
+    const db = getDatabase();
+    db.run('DELETE FROM embeddings WHERE record_type=? AND record_id=?', [recordType, recordId]);
+    saveDatabase();
   }
 }

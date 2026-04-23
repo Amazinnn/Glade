@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "本地 AI 生活记录助手（CLI + GUI）",
   "type": "module",
-  "main": "dist/main/index.js",
+  "author": "",
+  "main": "out/main/index.js",
   "bin": {
-    "ai-life": "dist/cli/index.js"
+    "ai-life": "out/cli/index.js"
   },
   "scripts": {
     "dev": "electron-vite dev",
@@ -14,17 +15,16 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "better-sqlite3": "^11.0.0",
+    "sql.js": "^1.10.0",
     "commander": "^12.0.0",
-    "electron": "^33.0.0",
     "openai": "^4.50.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.30.0",
-    "@types/better-sqlite3": "^7.6.11",
     "@types/node": "^22.0.0",
     "@types/uuid": "^10.0.0",
+    "electron": "^33.0.0",
     "electron-builder": "^25.0.0",
     "electron-vite": "^2.3.0",
     "react": "^18.3.0",
