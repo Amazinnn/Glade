@@ -1,0 +1,13 @@
+appId: com.ailife.assistant
+productName: AI生活记录助手
+directories:
+  buildResources: build
+  output: release
+win:
+  target:
+    - target: portable
+      arch:
+        - x64
+  artifactName: "${productName}-${version}-portable.${ext}"
+electronDownload:
+  mirror: https://npmmirror.com/mirrors/electron/
