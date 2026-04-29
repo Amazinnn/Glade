@@ -146,3 +146,79 @@ Web search is valuable for helping users learn and gather new context, but the f
 - First-stage local memory must not depend on network access.
 - Future web search should be explicit and source-aware.
 - Search results should become local records only when the user chooses to save them.
+
+## 2026-04-23: Treat A Day As Multi-Layered, Not Singular
+
+### Decision
+
+Glade should not define a day using only one lens. It should support multiple interpretations of daily life, such as clock time, work/rest rhythm, physiology, mood, and longer cycles.
+
+### Rationale
+
+Different users inhabit their days differently. A single fixed definition of a day would flatten the richness of lived experience and make the product less personal.
+
+### Consequences
+
+- The underlying storage model should stay stable while views and summaries remain flexible.
+- The product should support multiple lenses over the same record stream rather than multiple incompatible data models.
+- Future interfaces should allow users to choose or prefer how their day is framed.
+
+## 2026-04-23: Prefer Freeform First, Structured Growth Later
+
+### Decision
+
+Glade should prefer freeform diary-like capture first, with later soft decomposition into structured baskets such as tasks, health, study, topics, mood, and other lenses.
+
+### Rationale
+
+This preserves the texture of life and avoids forcing users to classify experience before they can express it. Structure should emerge from living records rather than from rigid upfront forms.
+
+### Consequences
+
+- The primary capture surface should stay open and low-friction.
+- The data model should support extracted signals and secondary indexes without making them mandatory for capture.
+- Future agent features should be able to propose structured growth from freeform text.
+
+## 2026-04-23: Grow Toward A Proactive Agent Carefully
+
+### Decision
+
+Glade should eventually support a more proactive agent, but this should come after the local recording foundation and should be introduced carefully.
+
+### Rationale
+
+Initiative is valuable when it helps users notice patterns, surface tasks, and connect parts of life they would otherwise lose. But too much initiative too early would feel intrusive or controlling.
+
+### Consequences
+
+- Early stages should keep the agent optional and user-triggered.
+- Later stages can add proactive suggestions, extracted baskets, and pattern prompts.
+- Proactive behavior should remain suggestive, inspectable, and easy to dismiss.
+
+## 2026-04-24: Position Glade As Life, Not Workspace
+
+### Decision
+
+Position Glade as a life-centered system, not a workspace for personal data.
+
+### Rationale
+
+The product should not turn life into rows, cells, or project structures, and it should not blur the boundary between work and life. Its value comes from helping users live with more awareness, not from making private life resemble work software.
+
+### Consequences
+
+- Future feature decisions should be checked against whether they make Glade feel like a workspace.
+- Structured views are allowed, but they must remain secondary to lived experience.
+- The primary product language should remain life-centered rather than productivity-centered.
+## 2026-04-24 - Five-Minute Recording Constraint
+
+- Status: accepted
+- Decision:
+  Glade should preserve a hard product constraint: within five minutes, a user should be able to record life well.
+- Why:
+  The product is meant for busy but sensitive people. Even if organization, search, review, and AI become powerful, the user should not have to spend long periods operating the system just to keep hold of daily life.
+- Implications:
+  - fast capture must remain the default path
+  - advanced structure must stay optional or backgrounded
+  - AI should reduce effort rather than introduce extra steps
+  - new features should be evaluated against recording speed and emotional lightness

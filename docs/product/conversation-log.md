@@ -103,8 +103,56 @@ The product name was chosen: `Glade`.
 
 The name fits the desired emotional space: a small open green clearing, quiet and breathable, where thoughts can move naturally. It keeps the product away from generic AI/tool naming and closer to a personal garden for life records.
 
+### Core Value Statement Direction
+
+The desired user feeling is:
+
+- This is life itself.
+- It does not become a workspace made of cells.
+- It does not blur the boundary between work and life.
+- It remains life first.
+
+This sharpens Glade's positioning against workspace-style tools such as Notion. The product may borrow useful structural ideas, but it must not inherit the emotional frame of work software.
+
 ### Future Capability: Agent Web Search
 
 The product owner wants Glade to eventually support agent web search so users can gain new knowledge.
 
 This should be recorded as a future capability, not part of the first implementation milestone. It should remain explicit, source-aware, and separate from private local memory unless the user chooses to save search results into Glade.
+
+### Multi-Layer Understanding Of A Day
+
+The product owner does not want Glade to define a day in only one way.
+
+Possible ways a day may be understood:
+
+- Chronological time from morning to night.
+- Work/rest or study/life schedule blocks.
+- Physiological rhythm, including energy, hormones, and nervous-system activity.
+- Psychological or atmospheric rhythm, including mood and felt texture.
+- Longer super-day rhythms that stretch across multiple days or cycles.
+
+The desired product direction is not to force a single interpretation, but to support multiple valid ways of understanding a day and let users prefer the one that fits them.
+
+This implies a design where Glade has one stable underlying record system, but multiple ways of reading the same life data.
+
+### Soft Decomposition From Freeform Diary
+
+The product owner wants Glade to start from freeform diary input rather than from manual structured entry.
+
+The desired direction is soft decomposition:
+
+- The user writes naturally and freely.
+- The agent extracts relevant signals from that diary-like input.
+- The system places those signals into related baskets over time, such as tasks, health, study, topics, mood, or other lenses.
+
+This is not meant to force the user to pre-classify life. The structure should grow after expression, not before it.
+
+The product owner also wants the future agent to have initiative. In the long run, the agent should not only wait for direct commands; it should notice useful patterns, propose organization, and help life records grow into richer structures.
+
+At the same time, this was recognized as a later-stage capability with possible feasibility and acceptance challenges. It should be implemented carefully so it feels helpful rather than intrusive.
+## 2026-04-24
+
+- Added a new core principle: Glade should let a user record life well within five minutes.
+- This principle is meant to guard against feature bloat, even when most complexity is handled by software or AI.
+- The idea is not merely speed for its own sake. It is about preserving the integrity of life recording for busy people who still want to remember, reflect, and stay close to their days.

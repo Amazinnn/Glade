@@ -137,6 +137,14 @@ The long-term ambition may be broad and powerful, with multiple cards, beautiful
 
 The product can become capable, even expansive, as long as every expansion helps the user remember, understand, organize, review, or care for their life.
 
+### Life, Not Workspace
+
+Glade should feel like life itself, not a workspace made to contain life.
+
+It should not collapse lived experience into grids, tables, cells, and systems thinking. It should also not blur the boundary between work and life by treating all experience as project management input.
+
+Glade may contain tasks, structure, reminders, and organization, but these must remain in service of life rather than redefining life in the image of work.
+
 ## Anti-Goals
 
 - Do not become a generic AI chat wrapper.
@@ -148,6 +156,8 @@ The product can become capable, even expansive, as long as every expansion helps
 - Do not become a generic diary app with interchangeable templates.
 - Do not flatten personal memories into sterile metrics.
 - Do not make AI conversation the only or primary product surface in the early stage.
+- Do not become a cell-based workspace for personal life.
+- Do not blur the boundary between work and life.
 
 ## Early Product Loop
 
@@ -180,3 +190,19 @@ This includes people busy with work, study, health, family, projects, or ordinar
 A user finishes work or study, rides home along a familiar road, notices a beautiful flower, or has a sudden imaginative idea. They open the app and record it quickly.
 
 That moment should feel natural, light, and worth preserving. This is one of the product's deepest reasons to exist.
+## Five-Minute Integrity
+
+Glade should help people preserve life without asking them to spend too much of life operating the system.
+
+No matter how many supporting capabilities Glade may gain in the future, the product should protect one practical promise:
+
+Within five minutes, a user should be able to record life well.
+
+This means:
+
+- capture must stay low-friction
+- structure must not become a prerequisite for recording
+- AI and automation should remove burden, not add ceremony
+- advanced features should stay behind the act of recording, not in front of it
+
+Glade should feel generous in what it can do, but light in what it asks from the user.
