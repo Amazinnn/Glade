@@ -1,6 +1,6 @@
 # Glade Competitive Landscape
 
-Last updated: 2026-04-24
+Last updated: 2026-05-01
 
 This document is a positioning tool, not a product catalog.
 
@@ -165,14 +165,15 @@ Glade's strongest combination is:
 - **life-first**
 - **local-first**
 - **capture first**
-- **recovery before heavy AI**
+- **Agent-forward but raw-grounded**
 - **structure grows from life flow**
 - **garden, not workspace**
 
 In practice, that means:
 
-- the user writes first
-- the record lands in a trusted daily container
+- the user gives Glade raw material first
+- the material lands in trusted local records
+- Agent helps shape material without hiding the source
 - the past is easy to recover
 - light structure emerges afterward
 - reflection stays gentle
@@ -221,6 +222,12 @@ It should not lead with:
 - platformized agents
 - complex views
 - heavy task systems
+
+### Modularity lesson
+
+Glade should borrow plugin power without becoming a plugin-maintenance hobby.
+
+The right lesson from tools like Obsidian, Joplin, and agent runtimes is not "make everything a marketplace." The useful lesson is that small capabilities should be bounded, switchable, and replaceable. In Glade, plugins should serve ability modules and interface orchestration surfaces without making the user manage the system before recording life.
 
 ## Optional Appendix: Agent Frameworks / Companion Runtimes
 

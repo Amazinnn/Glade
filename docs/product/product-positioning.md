@@ -49,9 +49,10 @@ Glade should not compete by being "Notion, but smaller" or "AI notes, but pretti
 Its real competitive edge is a combination of:
 
 - local ownership: Markdown and SQLite keep life readable and durable
-- natural capture: people can write first and organize later
+- natural capture: people can give Glade raw material before organizing it
 - recovery of the past: notes must be easy to find again
-- soft structure growth: tasks, themes, and reviews emerge from life records
+- Agent-assisted shaping: users can give a little material and let Glade help clarify, organize, connect, and continue it
+- soft structure growth: tasks, themes, streams, and reviews emerge from life records
 - emotional posture: the product is calm, open, and non-coercive
 - life-centered design: the product is about living, not optimizing oneself into a grid
 
@@ -69,27 +70,28 @@ When someone uses Glade, they should feel:
 
 The first meaningful Glade experience should unfold like this:
 
-1. I write something naturally, without friction.
-2. It is captured in today's Markdown and feels real.
-3. Later, I can find it again.
-4. Glade gently helps me notice what might matter: a task candidate, a recurring thread, a light review of the day.
+1. I give Glade something real, even if it is short or messy.
+2. It is captured as raw material and feels safe.
+3. I can ask Agent to help shape it instead of manually organizing everything.
+4. Later, I can find the original material again.
+5. Glade helps me see useful shapes: a task candidate, a recurring thread, a stream, a review, or another lens.
 
 ## V1 Core Loop
 
-The first version should stay centered on three things:
+The first version should stay centered on one layered model:
 
-1. Today's Markdown
-   The living container for the day. This is the factual layer and the trusted source.
+1. Ability modules
+   `Input / Raw Capture`, `Agent-Assisted Shaping`, `Output / View`, `Life Rendering / Digest`, `Recall`, and `Memory Agent / Reflective Recall` define what Glade can do.
 
-2. Task Candidate Basket
-   A soft structure layer that grows from freeform writing instead of replacing it.
+2. Interface orchestration functions
+   `Canopy Flow`, `Limpid Zen`, and `Memory Flora` define how the user works with those abilities: open composition, focused flow, and memory browsing.
 
-3. Light Review
-   A gentle understanding layer that helps the day settle into memory without overexplaining it.
+3. Internal plugins
+   Module subfeatures should be installable, removable, switchable, and replaceable where practical, so rich future functions do not become hard-coded tangles.
 
 Together, these create a simple progression:
 
-record -> recover -> gently reflect
+capture -> shape -> recover -> gently reflect
 
 ## Time Constraint
 
@@ -107,9 +109,10 @@ This positioning implies several design constraints:
 
 - the interface should feel like a garden, not a control center
 - structure should appear as support, not as mandatory setup
-- search should mature before heavier AI automation
-- AI should suggest, not dominate
-- future cards, views, and panels should grow from life records, not from empty templates
+- raw capture and recall should stay reliable before heavier Agent automation
+- Agent should be prominent because it reduces user effort, but it must stay raw-grounded and source-aware
+- future cards, views, panels, and plugins should grow from life records, not from empty templates
+- interface surfaces should orchestrate modules instead of owning module logic
 
 ## Relationship to Mainstream Tools
 

@@ -1,6 +1,6 @@
 # Glade V1 Core Experience Spec
 
-Last updated: 2026-04-29
+Last updated: 2026-05-01
 
 This document answers one practical question before product code expands:
 
@@ -14,80 +14,206 @@ Glade v1 stays inside one loop:
 
 `record -> recover -> gently reflect`
 
-The loop has five hard rules:
+The loop now has two structural layers:
 
-- The raw input surface is the first product surface.
-- The original entry must be saved as raw material before any derived treatment becomes authoritative.
-- Tags, streams, tasks, reviews, and calendars are treatment or output forms, not required writing forms.
-- Output views can coexist with input as movable cards, but they must remain grounded in raw material.
-- Agent-assisted handling is important, but its harness design should be specified separately.
+- Ability module layer: six modules define what Glade can do.
+- Interface orchestration layer: three surfaces define how the user works with those abilities.
+
+The loop has seven hard rules:
+
+- The user must be able to give Glade raw material quickly, even if the material is short, messy, or incomplete.
+- The original material must be saved before any derived treatment becomes authoritative.
+- Tags, streams, tasks, reviews, calendars, and Agent outputs are treatment or lens forms, not required writing forms.
+- Agent-assisted shaping is central to the product's convenience and life, but it cannot replace or hide raw material.
+- Output lens views can coexist with capture, recall, and Agent shaping, but they must remain grounded in source material.
+- Modules expose capabilities to each other; no module swallows another module's source-of-truth rules.
+- Modules can also contain internal plugins, but plugins must stay switchable, replaceable, and bounded by the owning module's interface.
 
 ### V1 Promise
 
 Within five minutes, a busy but sensitive user should be able to:
 
-- record something real
+- give Glade something real
 - come back later and find it
-- receive light help without being pressured
+- let Agent help shape it without being pressured or losing the original
 
-## Core Usage Scenes
+## V1 Product Hierarchy
 
-These are the scenes v1 must serve well. They are concrete product moments, not implementation mechanisms.
+V1 is not a flat list of equal scenes. It is a layered product model.
 
-### 1. Raw Input
+### Ability Module Layer
 
-A user opens Glade and writes freely into a blank input surface.
+Ability modules answer one question: what can Glade do?
+
+They should expose clear capabilities to the rest of the product while keeping their own internal rules private.
+
+#### 1. Input / Raw Capture
+
+A user gives Glade original material.
+
+This can be a sentence, a messy paragraph, a pasted fragment, a selected old record, a future voice transcript, or another raw signal. The user should not have to compose a polished diary entry before Glade becomes useful.
 
 Success in Glade:
 
 - the user does not first choose diary, note, task, or stream form
-- the writing surface feels blank and low-friction
-- the entry is saved as original raw material
-- later treatment must not overwrite the raw text
+- capture feels blank, low-friction, and emotionally safe
+- the material is saved as original raw material
+- later treatment must not overwrite the raw material
+- Agent availability does not control whether capture works
 
-### 2. Light Handling During Input
+#### 2. Agent-Assisted Shaping
 
-A user is writing and may optionally attach light handling instructions without turning the input surface into a form.
+A user opens or calls Agent to help shape material.
 
-Success in Glade:
-
-- the user can ignore all handling options and just write
-- the user can attach tags, stream intent, or a handling note when needed
-- the extra handling stays optional and quiet
-- the raw entry remains valid even if no handling is chosen
-
-### 3. Raw Recall
-
-A user wants to find or inspect original material later.
+This is Glade's core advanced function. Users will usually prefer this path because it is easier than manually writing long, structured records and then organizing them by hand.
 
 Success in Glade:
 
-- search works by text content and tags
+- Agent can clarify, organize, connect, transform, delay, or sustain work around one or many pieces of material
+- Agent uses module capabilities instead of owning raw capture, recall, output, tag, stream, or storage rules directly
+- Agent output is labeled as draft, candidate, suggestion, link, or derived view
+- Agent work can be accepted, ignored, edited, or traced back to source material
+- Agent can make Glade feel alive without becoming the only doorway into the product
+
+#### Agent-Assisted Shaping Behavior Matrix
+
+These dimensions map the minimum behavior space:
+
+| Material scope | Time mode | Goal scale | Example behavior | V1 stance |
+| --- | --- | --- | --- | --- |
+| Single material | Immediate | Short-term | Clean up one entry, extract a task candidate, suggest a tag, make a clean copy. | v1 light version |
+| Single material | Immediate | Long-term | Mark one entry as a future thread seed, suggest a stream candidate, preserve a recurring theme hook. | v1 light version |
+| Single material | Delayed or continuous | Short-term | Save now, ask Agent to organize tonight, remind tomorrow, or ask one later clarifying question. | v1 light version |
+| Single material | Delayed or continuous | Long-term | Bring this entry back when similar material appears in later weeks. | later, design-aware |
+| Many materials | Immediate | Short-term | Assemble today's fragments, summarize search results, create a next-day review or task candidate set. | v1 important |
+| Many materials | Immediate | Long-term | Map a long stream, relationship thread, study thread, or health/mood observation without diagnosing. | v1 light through streams |
+| Many materials | Delayed or continuous | Short-term | Support an exam week, trip, illness recovery, or project phase with daily gentle organization. | later |
+| Many materials | Delayed or continuous | Long-term | Steward long-running life threads, recurring themes, yearly review, and external context over time. | north star |
+
+Additional dimensions refine each behavior:
+
+- user-written material versus external context
+- explicit user request versus quiet suggested help
+- editing expression versus organizing material versus connecting life threads
+- one-off output versus maintained object
+- local-only context versus source-aware web context
+
+#### 3. Output / View / Output Lens
+
+A user wants to view organized results over raw material.
+
+Success in Glade:
+
+- output lens views include long streams, calendars, task candidates, light reviews, search results, history, and later lenses
+- these lens views are not writing forms
+- opening a lens does not hide where its material came from
+- lens views make recorded material useful again without becoming a second source of truth
+
+#### 4. Life Rendering / Digest
+
+A user wants Glade to render accumulated life material into a higher-level shape.
+
+This is the advanced presentation layer above output lenses. It can create digests, recaps, thread summaries, rhythmic views, or other gentle renderings over local records.
+
+Success in Glade:
+
+- rendering is grounded in selected source material
+- rendering stays optional and dismissible
+- rendering does not score, diagnose, moralize, or become a performance dashboard
+- rendering can be implemented through small plugins such as daily digest, weekly digest, stream recap, or period review
+
+#### 5. Recall / Raw Recall
+
+A user or Agent needs to find or inspect original material later.
+
+Success in Glade:
+
+- search works by text content, tags, dates, and remembered clues
 - the user can directly browse historical files or diary files inside the app
+- Agent may help widen recall, but raw recall does not depend on Agent interpretation
 - results and file browsing both lead back to original material
-- recovery does not depend on Agent interpretation
 
-### 4. Output Views
+#### 6. Memory Agent / Reflective Recall
 
-A user wants to view organized results produced from raw material.
+A user wants help revisiting past material, not only finding one record.
 
-Success in Glade:
-
-- output views include long streams, calendars, task views, reviews, search results, and other later views
-- these views are not writing forms
-- opening an output view does not hide where its material came from
-- output views are v1 core because they make recorded material useful again
-
-### 5. Compose The Working Surface
-
-A user may want input and output views visible at the same time.
+This is the advanced memory layer above raw recall. It may help connect related entries, surface forgotten threads, compare periods, or prepare reflective recall. It must not replace search results with confident AI prose.
 
 Success in Glade:
 
-- the sidebar lets the user choose which high-level surfaces are present
-- the main background can hold cards such as input, long stream, calendar, task view, and Agent chat
-- card position and layout are a UI design topic for later
-- the product concept is clear now: input and output can coexist without becoming the same thing
+- Memory Agent shows which records, days, streams, or lenses it used
+- reflective output remains draft or derived material
+- the user can open the source material behind every reflective result
+- memory work can be decomposed into plugins such as similar-moment recall, thread resurfacing, period comparison, or reflective question drafting
+
+### Interface Orchestration Layer
+
+Interface orchestration functions answer a different question: how does the user work with Glade's abilities?
+
+They are closer to frontend surfaces and total consoles. They schedule, reveal, hide, and compose modules. They do not own source material, derived objects, or module internals.
+
+#### Canopy Flow
+
+Canopy Flow is the open compositional workbench where input, Agent shaping, output lenses, recall, and transient cards can coexist. It is a table for a full meal, not the meal itself.
+
+Success in Glade:
+
+- several modules can be present together without becoming one tangled feature
+- each card or surface keeps its own source-of-truth responsibility
+- Agent can sit beside current material and help without becoming the only surface
+- detailed position, drag, and sidebar mechanics remain later UI design topics
+
+#### Limpid Zen
+
+Limpid Zen is the focused interface mode.
+
+It hides nonessential functions so the user can enter a simple, clear, efficient workflow. It should feel quiet and fluid, not empty or underpowered.
+
+Success in Glade:
+
+- only the modules needed for the current focused flow are visible
+- Agent assistance can still be available without visual pressure
+- optional handling and output views can be hidden until summoned
+- focus mode remains an orchestration surface, not a separate data model
+
+#### Memory Flora
+
+Memory Flora is the memory-browsing interface.
+
+It centers output and recall views so the user can browse, wander, and revisit past records. It should make memory feel alive without turning the product into a dashboard.
+
+Success in Glade:
+
+- output lenses, raw recall, Life Rendering, and Memory Agent can work together
+- past material remains browseable through source records, days, streams, and histories
+- reflective or rendered views stay grounded in original material
+- the interface supports exploration without requiring the user to build a database
+
+### Internal Plugin Principle
+
+Large modules must be modular inside, not only modular outside.
+
+A plugin is a bounded micro-capability inside a module. It can be installed, removed, enabled, disabled, replaced, or deferred without rewriting the owning module or interface surfaces.
+
+A plugin should define:
+
+- what module owns it
+- what input it accepts
+- what output it returns
+- what source-of-truth rule it must respect
+- whether it is visible, hidden, optional, or background
+- what happens when it fails
+
+Examples:
+
+- Output / View plugins: long stream, calendar, task candidate view, search result view, history view, review view
+- Life Rendering plugins: daily digest, weekly digest, stream recap, period review, rhythm rendering
+- Agent-Assisted Shaping plugins: clean copy, tag suggestion, stream suggestion, task extraction, delayed handling
+- Memory Agent plugins: similar-moment recall, thread resurfacing, reflective question drafting, period comparison
+
+Plugin rule:
+
+Plugins extend a module. They do not bypass the module, mutate another module's state directly, or become hidden source-of-truth systems.
 
 ## V1 Boundaries And Anti-Goals
 
@@ -134,9 +260,11 @@ If the working surface becomes a fixed metrics board or operational control cent
 
 Allowed in v1:
 
-- movable cards for input and output views
-- a sparse sidebar for choosing high-level surfaces
-- calm coexistence of input, output, and Agent chat cards
+- Canopy Flow for raw capture, recall, output lenses, Agent shaping, and transient cards
+- Limpid Zen for focused work with nonessential surfaces hidden
+- Memory Flora for output-centered browsing and reflective recall
+- a sparse way to summon or reveal high-level modules
+- calm coexistence without equal-weight dashboard pressure
 
 Not allowed in v1:
 
@@ -149,18 +277,21 @@ Not allowed in v1:
 Judgment rule:
 If the user must enter chat to record or recover raw material, it is out of v1.
 
+Sharper rule:
+Glade is Agent-forward, but raw-grounded. Agent-assisted shaping is core, but raw capture and recall must still work without Agent.
+
 Allowed in v1:
 
-- AI drafting
-- AI extraction
-- AI review generation
+- Agent-assisted shaping over one or many materials
+- AI drafting, extraction, connection, and lens preparation
+- user-requested or gently suggested Agent help that stays traceable to sources
 
 Not allowed in v1:
 
 - chat as the default home
 - AI rewriting raw records without consent
 - AI answers replacing search results
-- defining the Agent harness before the product scenes are stable
+- Agent swallowing raw capture, recall, lens, tag, or storage rules into one tangled feature
 
 ### Glade v1 is not a workspace
 
@@ -202,16 +333,22 @@ V1 should treat the product as a layered system. Raw records are primary. Everyt
 
 | Object | Definition | Created by | User editable in v1 | Source-of-truth role |
 | --- | --- | --- | --- | --- |
-| `Raw Entry` | One original freeform input written by the user before treatment. | User capture. | Yes, within the raw editing rules that will be specified later. | Primary raw material unit. |
+| `Raw Signal` | Any original material the user gives Glade, including a short sentence, messy paragraph, paste, selected old material, or future voice transcript. | User capture or user-selected source. | Yes, where the source allows it. | Input material before shaping. |
+| `Raw Entry` | One saved original-material unit before treatment. | Raw capture. | Yes, within the raw editing rules that will be specified later. | Primary raw material unit. |
 | `Raw Log` | The appendable original-material archive used for backtracking and inspection. | System writes on save. | Mostly append-first in v1. | Primary human-readable truth. |
 | `Daily Note` | A day-based file or view that can organize raw entries by date. | System creates from saved raw entries. | Yes. | One important raw-material organization form, not necessarily the only frontstage input form. |
-| `View Card` | A movable card showing input, output, or Agent interaction on the working surface. | User opens through the sidebar or view controls. | Yes, layout details later. | View layer only. |
+| `Interface Surface Card` | A card or surface showing capture, recall, a lens, Agent shaping, memory browsing, focused work, or a transient handling aid. | User or product surface opens it. | Yes, layout details later. | View layer only. |
 | `Long Stream` | A persistent long-running theme page that compiles selected records into one time-ordered flow. | User creates the stream; system maintains its compiled contents over time. | Yes. The user may add, remove, rename, or inspect membership. | Compiled view layer only. Never replaces the raw notes. |
 | `Tag` | A user-approved tag attached to a stream or used to help classify stream content. | User creates directly, or user accepts an agent suggestion. | Yes. The user owns visible tag names. | Support structure only. Not a primary truth layer. |
 | `Task Candidate` | A suggested action grown from one or more records. | AI or deterministic extraction after save. | Yes. The user may keep, rename, or dismiss. | Derived layer only. Never overrides the record. |
 | `Light Review` | A small recap attached to a day and grounded in that day's records. | AI draft created on demand or quietly in the evening. | Yes. The user may open, ignore, or regenerate. | Derived layer only. Never becomes the day's authority. |
 | `Search Result` | A retrieval package that points back to a day or record with enough snippet context to reopen it. | Local search engine. | No. It is a view object. | No source-of-truth status. |
 | `Signal` | A weak extracted hint such as person, topic, mood, study, or health. | AI or light local extraction. | Not directly in v1. Signals remain inspectable hints. | Derived layer only. |
+| `Agent-Assisted Shaping Output` | A draft, candidate, connection, transformation, reminder request, or maintained object proposed by Agent over source material. | Agent, using module capabilities. | Yes, the user can accept, edit, ignore, or dismiss. | Derived layer only until explicitly accepted into another object. |
+| `Life Rendering Output` | A digest, recap, period rendering, stream rendering, or other higher-level presentation over accumulated material. | Life Rendering plugin, sometimes with Agent help. | Yes, as draft or derived output. | Derived presentation layer only. |
+| `Memory Agent Output` | A reflective recall result, resurfaced thread, comparison, or question draft over past material. | Memory Agent plugin. | Yes, as draft or derived output. | Derived memory layer only. Never replaces raw recall. |
+| `Module Plugin` | A bounded micro-capability owned by one ability module. | Product design or implementation. | Usually configurable later. | No source-of-truth role by itself. |
+| `External Context` | Source-aware material from outside the user's local records, such as future web search results. | Agent only with explicit user intent or later allowed rules. | User can save or discard. | Reference material only, not user raw material. |
 
 ### Long Stream Rules
 
@@ -234,6 +371,9 @@ V1 should treat the product as a layered system. Raw records are primary. Everyt
 - Human-readable local files beat opaque derived state.
 - SQLite is the retrieval and relationship engine, not the emotional authority.
 - Removing a record from a stream, or changing tag structure, must never rewrite the original record.
+- Agent shaping output is never raw truth by default.
+- External context is never user-written memory unless the user explicitly saves it as such.
+- Modules expose capabilities to each other but keep their own authority rules.
 - Deleting or regenerating task candidates, reviews, or signals must never rewrite the original record.
 - If derived layers conflict with the raw record, the raw record wins.
 
@@ -290,38 +430,50 @@ There is no separate full task engine in v1. The candidate basket is the end sta
 - `empty`: query ran, nothing useful found
 - `fallback`: search index failed, so only manual reopen paths remain
 
+### Module Plugin
+
+- `available`: plugin exists and can be used by its owning module
+- `enabled`: plugin is active for the current user or surface
+- `disabled`: plugin exists but is turned off
+- `deferred`: plugin is designed as a future capability but not implemented yet
+- `failed_soft`: plugin failed without breaking the owning module's core behavior
+
 ## Surface And Layout Priorities
 
 V1 should stop treating the app as a fixed set of equal panels.
 
 The current prototype already has the right garden tone, but the structure is too fixed. V1 should rebalance around one fact:
 
-Raw input is the default entry point. Output views help the user reuse and understand what has been recorded.
+Raw capture is the foundation. Agent-assisted shaping is the core convenience path. Output lens views help the user reuse and understand what has been recorded. Canopy Flow, Limpid Zen, and Memory Flora decide how much of this is visible at once.
 
 ### Surface Rules
 
-- The sidebar chooses which high-level surface or card is visible.
-- The input card is the default card.
-- Output cards include long stream, calendar, task view, review, search result, and history/file browsing.
-- Agent chat can exist as a card, but Agent behavior should be designed in a separate harness specification.
+- Canopy Flow can hold capture, recall, output lenses, Agent shaping, and transient cards together.
+- Limpid Zen can hide nonessential modules for a focused workflow.
+- Memory Flora can center recall, output lenses, Life Rendering, and Memory Agent for memory browsing.
+- The capture card stays simple and always available.
+- Agent-assisted shaping should be easy to summon because it is the core advanced function.
+- Output lens cards include long stream, calendar, task candidate view, review, search result, and history/file browsing.
+- Plugin-backed views can be added or disabled without rewriting the interface orchestration layer.
+- Agent chat may be one interface for shaping, but shaping is broader than chat.
 - Search is globally reachable, but visually secondary.
 - Detailed card movement and layout mechanics are UI design work for later.
 
-## Key Flow A: Raw Input
+## Key Flow A: Raw Capture
 
-This is the most important flow in the product.
+This is the foundation flow in the product.
 
 ### Entry
 
-- app launch opens the input surface by default
-- keyboard focus lands in the raw input field
-- sidebar and other cards remain secondary
+- the user can immediately give Glade a raw signal
+- keyboard entry is available by default on desktop
+- Agent help is nearby but does not gate capture
 
 ### Main interaction
 
-1. The user writes one freeform block.
+1. The user provides a raw signal.
 2. No required fields appear.
-3. The user may optionally attach light handling such as tags, stream intent, or a note to Agent.
+3. The user may optionally open a transient handling card such as tags, stream intent, or a note to Agent.
 4. On save, the system writes the original block into the raw log first.
 5. After raw save succeeds, the system updates index and view state.
 
@@ -334,7 +486,7 @@ This is the most important flow in the product.
 
 - keep writing
 - open the raw entry in context
-- open history or output views
+- open history or output lens views
 - leave the app
 
 ### Failure behavior
@@ -343,7 +495,46 @@ This is the most important flow in the product.
 - If raw save succeeds but indexing fails, the entry stays saved and the UI shows a small retry state such as `saved locally, search update pending`.
 - Agent handling failure must never block the save.
 
-## Key Flow B: Grow Task Candidates From Writing
+## Key Flow B: Agent-Assisted Shaping
+
+This is the core advanced flow in the product.
+
+It begins from a raw signal, a saved record, a set of records, a search result, an output lens, or a future external context source.
+
+### Trigger
+
+- the user explicitly asks Agent to help
+- the user opens Agent beside current material
+- Glade offers a quiet suggestion based on local context, without interrupting capture
+
+### Main interaction
+
+1. The user gives or selects material.
+2. Agent states what source scope it is using.
+3. Agent proposes a draft, candidate, connection, transformation, delayed handling, or maintained object.
+4. The user accepts, edits, ignores, dismisses, or asks for a different shape.
+5. Accepted output becomes the correct derived object, such as a task candidate, stream membership, review draft, tag suggestion, or saved note.
+
+### Feedback
+
+- every Agent output is labeled as draft, candidate, suggestion, connection, or derived view
+- source material remains reachable from the output
+- the user can tell whether the Agent used one material, many materials, local history, or external context
+
+### Exit points
+
+- return to raw capture
+- open the source material
+- open the relevant output lens
+- save, accept, dismiss, or defer the Agent output
+
+### Failure behavior
+
+- Agent failure does not block raw capture, raw recall, or lens viewing
+- partial Agent output stays draft-only until accepted
+- if Agent cannot access enough context, it says so plainly and offers a smaller scope
+
+## Key Flow C: Grow Task Candidates From Writing
 
 This flow begins only after a record already exists.
 
@@ -377,7 +568,7 @@ This flow begins only after a record already exists.
 - the basket simply remains unchanged
 - the product may show a quiet retry affordance, but only inside the basket
 
-## Key Flow C: Add A Day Or Record Into A Long Stream
+## Key Flow D: Add A Day Or Record Into A Long Stream
 
 This flow exists because long streams are partly curated, not purely inferred.
 
@@ -412,7 +603,7 @@ This flow exists because long streams are partly curated, not purely inferred.
 - if stream compilation lags, the membership still saves and the UI shows a small `updating stream` state
 - if tag suggestion fails, the stream still exists and the user-visible primary tags remain valid
 
-## Key Flow D: Raw Recall
+## Key Flow E: Raw Recall
 
 The job of recall is to reopen original material.
 
@@ -449,7 +640,7 @@ The job of recall is to reopen original material.
 - if the local index is unavailable, the UI should say so plainly and offer manual reopen paths such as today's note or recent days
 - search failure must never silently call remote AI
 
-## Key Flow E: View A Light Review
+## Key Flow F: View A Light Review
 
 This flow should feel like closing a window softly, not attending a meeting.
 
@@ -491,13 +682,20 @@ The system should only prepare a review when there is enough material:
 
 ## AI Behavior Contract
 
-AI is a support layer. This contract exists so it stays in its place.
+Agent is the core advanced function, not a decorative add-on.
+
+This contract exists so Agent shaping stays useful, modular, and raw-grounded instead of becoming an opaque chat product.
 
 | Situation | AI allowed? | Context AI may read | Output type | Hard prohibition |
 | --- | --- | --- | --- | --- |
 | Saving a raw record | No, not for the save path itself | None required for persistence | None | AI cannot gate capture |
+| Agent-assisted shaping over one material | Yes | The selected raw signal or saved record | draft, candidate, tag suggestion, clean copy, clarification, deferred handling request | AI cannot overwrite the source material |
+| Agent-assisted shaping over many materials | Yes | User-selected records, search results, day, stream, or lens scope | summary, connection, thread map, candidate set, review draft | AI cannot hide which material was used |
+| Agent-assisted shaping with external context | Later | Explicitly requested source-aware external material | reference, comparison, saved source candidate | AI cannot mix external context into user memory without labeling |
 | Task candidate extraction | Yes | The newest record, plus nearby same-day records if needed | `Task Candidate[]` | AI cannot auto-create final tasks without user acknowledgment |
 | Light review generation | Yes | Today's saved records only | `Light Review draft` | AI cannot diagnose, coach, or moralize |
+| Life Rendering / Digest | Yes, optional | User-selected day, period, stream, or lens scope | digest, recap, period rendering, stream recap | AI cannot turn life into scores or dashboard metrics |
+| Memory Agent / Reflective Recall | Yes, optional | User-selected records, recall results, stream, period, or lens scope | reflective recall, thread resurfacing, comparison, question draft | AI cannot replace raw recall or hide source material |
 | Basic search | No by default | Local index only | `Search Result[]` | AI cannot replace search with a chat answer |
 | Stream tag suggestion | Yes | User-approved primary tags, selected stream scope, and candidate records | `Tag[]` suggestions or membership suggestions | AI cannot publish new visible primary tags without user approval |
 | Long stream maintenance | Yes | Selected records, stream membership, approved tags | compiled membership updates and secondary tag suggestions | AI cannot silently remove user-pinned records from a stream |
@@ -508,6 +706,7 @@ AI is a support layer. This contract exists so it stays in its place.
 - Every AI-generated object must be visibly labeled as a draft, candidate, or signal.
 - The UI should reveal the scope used, for example `Based on today's note` or `From this record`.
 - AI output must be separable from the raw note at a glance.
+- Agent shaping should expose whether it used one material, many materials, a lens, or external context.
 
 ### AI Restraint Rules
 
@@ -518,6 +717,7 @@ AI must not:
 - trigger interruptions outside the current surface
 - speak in coaching, diagnosis, or performance-management language
 - auto-send notifications based on inferred meaning
+- bypass module interfaces and directly mutate another module's source-of-truth state
 
 ## Search Semantics For V1
 
@@ -615,9 +815,10 @@ Every result should expose:
 
 This document implies a narrow v1 build order:
 
-1. Make `Today` and raw record persistence excellent.
-2. Make search reopen records and days reliably.
-3. Add the user-controlled long-stream and tag-library foundation.
-4. Add derived support layers: task candidates, light review, and agent-assisted stream maintenance.
+1. Make raw capture and raw record persistence excellent.
+2. Make raw recall reopen records and days reliably.
+3. Add the first useful Agent-assisted shaping path on top of saved material.
+4. Add output lens foundations such as long stream, task candidates, light review, search results, and history.
+5. Expand Agent shaping through modular calls into recall, lens, tag, stream, review, and later external-context modules.
 
-If a future implementation choice conflicts with this order, the default answer is to protect `Today`.
+If a future implementation choice conflicts with this order, the default answer is to protect raw material and module boundaries.

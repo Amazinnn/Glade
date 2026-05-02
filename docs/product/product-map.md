@@ -80,7 +80,7 @@ This means Glade is not optimized first for:
 
 Glade should follow one basic progression:
 
-record -> recover -> gently reflect
+capture -> shape -> recover -> gently reflect
 
 This progression defines the product better than any single feature.
 
@@ -88,65 +88,72 @@ This progression defines the product better than any single feature.
 
 The first meaningful experience should be:
 
-1. I write something naturally, without friction.
-2. It lands in today's Markdown and feels real.
-3. Later, I can find it again.
-4. Glade gently helps me notice what matters.
+1. I give Glade something real, even if it is short or messy.
+2. It lands as raw material and feels safe.
+3. I can let Agent help shape it instead of manually organizing everything.
+4. Later, I can find the original material again.
+5. Glade gently helps me notice what matters.
 
 ---
 
-## 5. V1 Core Capabilities
+## 5. V1 Product Layers
 
-The first version should stay centered on three things.
+The first version should be understood as layered, not as a flat feature list.
 
-### 1. Today's Markdown
+### 1. Ability Module Layer
 
-The living container for the day.
+The reusable abilities underneath the product:
 
 Role:
 
-- trusted source
-- factual layer
-- directly readable file
-- the place where life actually lands
+- `Input / Raw Capture` receives original material
+- `Agent-Assisted Shaping` helps shape material through Agent work
+- `Output / View / Output Lens` shows material through useful views
+- `Life Rendering / Digest` renders accumulated material into higher-level digests and rhythms
+- `Recall / Raw Recall` finds and reopens original material
+- `Memory Agent / Reflective Recall` helps revisit, connect, and reflect over past material
 
 Why it matters:
 
 - gives the user ownership
 - reduces black-box feeling
 - keeps the product grounded in real life records
+- gives Agent and memory functions reliable material to compose
+- lets future work extend one module without rewriting the whole product
 
-### 2. Task Candidate Basket
+### 2. Interface Orchestration Layer
 
-A soft structure layer that grows from freeform writing.
-
-Role:
-
-- extract possible commitments from life records
-- keep tasks attached to context
-- suggest rather than force
-
-Why it matters:
-
-- helps life flow become gently actionable
-- avoids making users structure records upfront
-- creates value without turning Glade into a task manager
-
-### 3. Light Review
-
-A gentle understanding layer for the day.
+The frontend-facing total consoles that coordinate ability modules:
 
 Role:
 
-- collect what happened
-- surface recurring threads
-- help the day settle into memory
+- `Canopy Flow` is the open compositional workbench where modules coexist
+- `Limpid Zen` hides nonessential functions for focused, clear work
+- `Memory Flora` centers output and recall views for browsing past memory
+- these surfaces dispatch modules but do not own source material or module internals
 
 Why it matters:
 
-- prevents records from becoming dead accumulation
-- supports reflection without overanalysis
-- gives the product a life-centered rhythm
+- prevents the product from becoming a single-purpose diary, search page, or chat box
+- keeps the experience expandable without becoming a workspace
+- lets the same modules serve different user states: open composition, focus, and memory browsing
+
+### 3. Internal Plugin Layer
+
+Large modules must also be modular inside.
+
+Role:
+
+- turn subfeatures into bounded plugins where practical
+- allow plugins to be enabled, disabled, replaced, or deferred
+- keep plugin inputs, outputs, source rules, and failure behavior explicit
+- let Output / View, Life Rendering, Agent shaping, and Memory Agent grow without hard-coded tangles
+
+Why it matters:
+
+- protects staged implementation
+- makes experiments safer
+- lets strange and rich `temp.md` ideas enter Glade one small capability at a time
 
 ---
 
@@ -558,16 +565,25 @@ Glade should have agent capabilities, but it should not be built as a generic ag
 
 ### Principle
 
-Agent is a support layer inside the product, not the product's center.
+Agent-Assisted Shaping is one ability module and the core advanced function inside the product, but it is not the only doorway.
+
+The sharper principle is:
+
+Glade is Agent-forward and raw-grounded.
+
+Users will usually prefer Agent-assisted shaping because it reduces effort. The product still needs raw capture, raw recall, output lenses, Life Rendering, and Memory Agent as separate abilities, because Agent work must stay source-aware, inspectable, and recoverable.
 
 ### Near-Term Agent Scope
 
 The first agent abilities should be narrow and explicit:
 
+- shape one raw signal into a useful draft, candidate, or clean copy
+- shape several records into a short summary, connection, or candidate set
 - extract task candidates
 - draft light reviews
 - tag mood / health / study signals
 - summarize search results or daily records
+- call module plugins through module interfaces instead of hard-coding every small behavior
 
 ### What To Avoid Early
 
@@ -575,6 +591,7 @@ The first agent abilities should be narrow and explicit:
 - unrestricted shell or browser access inside user runtime
 - overactive prompts and interventions
 - general-purpose always-on personal assistant behavior
+- Agent logic directly owning raw capture, recall, storage, lens, tag, or stream internals
 
 ### Framework Comparison Summary
 
@@ -660,15 +677,17 @@ Glade's current center of gravity is:
 - life first
 - local first
 - capture first
-- recovery before heavy AI
+- Agent-forward but raw-grounded
+- recovery before opaque automation
 - gentle structure growth
 - calm emotional design
 
 The practical V1 path is:
 
-1. today's Markdown
-2. task candidate basket
-3. light review
-4. reliable search
+1. raw capture and raw log
+2. raw recall
+3. first useful Agent-assisted shaping path
+4. output lens foundation
+5. task candidates, light review, long streams, and tag library
 
 Everything else should serve this path rather than compete with it.

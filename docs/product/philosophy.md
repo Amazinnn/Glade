@@ -51,9 +51,11 @@ Structured fields are useful only when they reduce future burden. They should no
 
 Recording should preserve the texture of life. Quantification is useful, but beautiful daily moments should not collapse into empty numbers.
 
-### AI As Organizer, Not Supervisor
+### Agent As Shaper, Not Supervisor
 
-AI should help arrange, retrieve, summarize, and clarify. It should not become a judge, boss, or productivity scold.
+Agent should help shape life material: arrange, retrieve, summarize, clarify, connect, transform, and continue it. It should not become a judge, boss, or productivity scold.
+
+Glade should be Agent-forward but raw-grounded. Users should be able to rely on Agent help because it reduces effort, but the user's raw material must remain durable, inspectable, and recoverable.
 
 Good AI behavior:
 
@@ -62,6 +64,7 @@ Good AI behavior:
 - Turns vague thoughts into small possible actions.
 - Offers observations gently when invited.
 - Makes it easy to inspect what context was used.
+- Uses raw capture, recall, and lenses as modules instead of swallowing their rules.
 
 Poor AI behavior:
 
@@ -96,6 +99,14 @@ The system should feel closer to a well-designed building than a folder full of 
 The CLI is a core part of the product's openness.
 
 External agents, user scripts, internal native AI agents, and automation workflows should be able to call into the system without depending entirely on the GUI. This makes the product more durable, programmable, and extensible.
+
+### Modular And Pluggable
+
+Glade should be modular from the product model down to module internals.
+
+Ability modules should expose clear interfaces and keep their own source-of-truth rules. Interface surfaces should orchestrate modules instead of owning module logic. Large modules should grow through plugins where practical, so small capabilities can be installed, removed, enabled, disabled, replaced, or deferred without tangling the whole product.
+
+This matters because Glade will be built in stages. Rich future functions should enter through clean boundaries, not through cross-module hard-coding.
 
 ### Quiet, Trustworthy, Durable
 
@@ -163,13 +174,13 @@ Glade may contain tasks, structure, reminders, and organization, but these must 
 
 The first strong loop should be:
 
-1. Quickly record a life log.
-2. Record or update important events.
+1. Capture raw life material quickly.
+2. Let Agent shape short, messy, or incomplete material into useful drafts, candidates, links, or lenses.
 3. Search and recover past context.
 4. Review and reflect on recent life, tasks, and reminders.
 5. Export or back up records in a durable format.
 
-AI conversation and advanced AI operation are valuable long-term directions, but the early product should first become a reliable recording system.
+Agent-assisted shaping is a core advanced function, not a distant add-on. The early product should still first protect reliable raw capture, recall, and local ownership, because those foundation abilities make Agent help trustworthy.
 
 ## Primary Users
 
@@ -181,9 +192,10 @@ This includes people busy with work, study, health, family, projects, or ordinar
 
 - Review and reflection after a day, week, or study/work session.
 - Quick capture of thoughts, moments, events, and observations.
+- Agent-assisted shaping of one record, many records, or a life thread.
 - Search and memory recovery.
 - Schedule and reminder support.
-- Later-stage AI organization and autonomous operation.
+- Later-stage broad automation and autonomous operation.
 
 ## Emotional Design Scenario
 

@@ -54,16 +54,16 @@ The product should accompany growth. It should not become a productivity pressur
 
 ### Decision
 
-The early product should prioritize review, quick capture, search, memory recovery, and schedule reminders. AI conversation and advanced AI operation are important later directions, but not the first product center.
+The early product should prioritize reliable raw capture, search, memory recovery, review, and the first useful Agent-assisted shaping path. Broad autonomous AI operation is a later direction, but Agent shaping is part of the product center.
 
 ### Rationale
 
-The product must first become a reliable life recording system. AI capability is more valuable when it has trustworthy records and structure to work with.
+The product must first become a reliable life recording system. Agent capability is more valuable when it has trustworthy records and structure to work with.
 
 ### Consequences
 
-- Improve record creation and retrieval before expanding AI surfaces.
-- Keep AI integration useful but not dominant in the first stage.
+- Improve record creation and retrieval before expanding broad autonomous AI surfaces.
+- Keep Agent-assisted shaping useful, source-aware, and grounded in foundation abilities.
 - Design future AI features around existing records, not empty chat.
 
 ## 2026-04-23: Treat CLI As A Core Openness Surface
@@ -222,3 +222,87 @@ The product should not turn life into rows, cells, or project structures, and it
   - advanced structure must stay optional or backgrounded
   - AI should reduce effort rather than introduce extra steps
   - new features should be evaluated against recording speed and emotional lightness
+
+## 2026-05-01: Treat Agent-Assisted Shaping As The Core Advanced Function
+
+### Decision
+
+Glade v1 should treat six ability modules as the macro product model: `Input / Raw Capture`, `Agent-Assisted Shaping`, `Output / View`, `Life Rendering / Digest`, `Recall`, and `Memory Agent / Reflective Recall`.
+
+### Rationale
+
+Users are unlikely to prefer long manual input and manual organization when Agent can help shape short, messy, or incomplete material. Agent-assisted shaping is what makes Glade feel alive and convenient. The foundation abilities remain necessary because Agent help, output views, rendering, recall, and memory work must stay grounded in source material.
+
+### Consequences
+
+- Glade should be Agent-forward but raw-grounded.
+- Agent shaping should be easy to summon, but raw capture and raw recall must work without Agent.
+- Agent output must remain labeled, source-aware, and reversible until accepted by the user.
+- Step 1 should no longer describe transient input handling or interface surfaces as equal user scenes.
+
+## 2026-05-01: Keep Glade Modular From The Product Model Upward
+
+### Decision
+
+Design Glade as a modular product system. Ability modules should expose clear capabilities while keeping their own internal source-of-truth rules.
+
+### Rationale
+
+Agent-assisted shaping, Output / View, Life Rendering, and Memory Agent will grow across many situations. If one feature directly owns raw capture, search, lenses, tags, streams, storage, rendering, and memory reflection, the product will become hard to trust and hard to change.
+
+### Consequences
+
+- Agent shaping composes modules instead of swallowing them.
+- Canopy Flow displays modules together without merging their responsibilities.
+- New capabilities such as web search, voice capture, new lenses, or scheduling should be added as modules with clear boundaries.
+- Implementation planning should protect module interfaces before adding broad Agent autonomy.
+
+## 2026-05-01: Adopt Three Interface Orchestration Functions
+
+### Decision
+
+Glade should distinguish ability modules from interface orchestration functions. The three interface functions are `Canopy Flow`, `Limpid Zen`, and `Memory Flora`.
+
+### Rationale
+
+Ability modules answer what Glade can do. Interface functions answer how the user works with those abilities. Mixing these layers would make frontend surfaces own product logic and would make later redesign difficult.
+
+### Consequences
+
+- Canopy Flow is the open compositional workbench for mixed-module work.
+- Limpid Zen is the focused surface that hides nonessential functions.
+- Memory Flora is the memory-browsing surface centered on output, recall, Life Rendering, and Memory Agent.
+- Interface functions orchestrate modules but do not own source material, derived objects, or module internals.
+
+## 2026-05-01: Treat Module Subfeatures As Plugins Where Practical
+
+### Decision
+
+Large modules should support internal plugins where practical. A plugin is a bounded micro-capability that can be installed, removed, enabled, disabled, replaced, or deferred through the owning module's interface.
+
+### Rationale
+
+Output / View and Memory Agent will attract many strange and useful subfeatures. `temp.md` shows this clearly. If those small functions become hard-coded across modules and interface surfaces, staged implementation will be fragile.
+
+### Consequences
+
+- Plugins must have an owning module.
+- Plugins must define input, output, source rule, visibility, and failure behavior.
+- Plugins must not directly mutate another module's source-of-truth state.
+- Ideas from `temp.md` should be treated as a capability and plugin reference pool, not as a fixed roadmap.
+
+## 2026-05-01: Lock Step 1 Macro Product Model
+
+### Decision
+
+Step 1 is locked with six ability modules, three interface orchestration functions, and the internal plugin principle.
+
+### Rationale
+
+The remaining questions now belong to later stages: behavior details, object/source-of-truth design, flow states, Agent harness, low-fi interaction, acceptance, and implementation order. Continuing to expand Step 1 would mix macro scene definition with downstream design work.
+
+### Consequences
+
+- Step 2 becomes the active design stage.
+- New ideas must be routed as module behavior, interface orchestration, plugin candidates, or later harness/storage/UI questions.
+- Step 1 should reopen only if a new core product situation cannot fit the locked hierarchy.

@@ -1,6 +1,6 @@
 # Glade Product Design Process
 
-Last updated: 2026-04-29
+Last updated: 2026-05-01
 
 This document is the governing process for Glade product design before product code expands.
 
@@ -14,28 +14,37 @@ The goal is simple:
 
 ## Process Status
 
-Current stage: `Step 1 - Core V1 Usage Scenes`
+Current stage: `Step 2 - V1 Core Experience Spec`
 
-Current status: `active, close to locking`
+Current status: `Step 1 locked; Step 2 active`
 
 Current working question:
 
-What are the core v1 user scenes that Glade must serve?
+How should the locked Step 1 hierarchy behave in concrete v1 experience flows?
 
-Current scene set:
+Locked Step 1 product hierarchy:
 
-- `Raw Input`: the user opens Glade and writes freely into a blank input surface.
-- `Light Handling During Input`: the user may optionally attach tags, stream intent, or handling notes while writing.
-- `Raw Recall`: the user can search by text or tags, and can also browse historical files or diary files inside the app.
-- `Output Views`: long streams, calendars, task views, reviews, and search results are v1 core output surfaces over raw material.
-- `Composed Working Surface`: input, output, and Agent chat can coexist as cards selected from a sparse sidebar.
+- Ability module: `Input / Raw Capture` receives original material from the user.
+- Ability module: `Agent-Assisted Shaping` helps clarify, organize, connect, transform, delay, or sustain work around material.
+- Ability module: `Output / View / Output Lens` shows material through useful views such as long streams, calendars, task candidates, reviews, search results, and history.
+- Ability module: `Life Rendering / Digest` turns accumulated material into higher-level digests, rhythms, summaries, and gentle renderings.
+- Ability module: `Recall / Raw Recall` finds and reopens original material.
+- Ability module: `Memory Agent / Reflective Recall` helps revisit, connect, and reflect over past material without replacing source records.
+- Interface orchestration function: `Canopy Flow` is the open compositional workbench where modules can coexist.
+- Interface orchestration function: `Limpid Zen` hides nonessential complexity and gives the user a focused, clear workflow.
+- Interface orchestration function: `Memory Flora` centers output and recall views so the user can browse, wander, and revisit past memory.
 
 Current guardrails:
 
 - `Long Stream` is an output or recovery view, not a writing form.
-- Raw input, storage, output views, and Agent harness must stay separate in discussion.
-- Agent-assisted processing should be designed in a separate harness process.
-- Concrete UI mechanics should wait until the scene and flow layers are locked.
+- Ability modules, interface functions, plugins, and storage must stay modular.
+- Glade is `Agent-forward` but `raw-grounded`: users will usually prefer Agent help, but Agent work cannot replace or hide raw material.
+- Transient input handling is not a separate scene. It is behavior such as opening a tag card and closing it again.
+- `Canopy Flow` keeps the core idea that modules can sit together without merging responsibilities.
+- `Limpid Zen` and `Memory Flora` are interface orchestration functions, not new source-of-truth layers.
+- `temp.md` is a content and possibility reference, not a roadmap or implementation order.
+- Large modules must also be internally modular. Subfeatures should be treated as plugins where practical: installable, removable, switchable, and replaceable through clear module interfaces.
+- Concrete UI mechanics, tool permissions, and storage schema should wait until their later steps.
 
 ## Design Stage Gates
 
@@ -47,8 +56,8 @@ No product code should be written for a major feature until the relevant gates h
 | --- | --- | --- | --- |
 | `G0 Philosophy` | Decide what Glade is and is not. | `philosophy.md`, `product-positioning.md`, `product-map.md` | substantially complete |
 | `G1 Landscape` | Know what to borrow and refuse. | `competitive-landscape.md` | substantially complete |
-| `G2 Usage Scenes` | Define what users are actually trying to do. | `v1-core-experience.md` | active |
-| `G3 Experience Spec` | Describe how Glade behaves in those scenes. | `v1-core-experience.md` | draft, not locked |
+| `G2 Usage Scenes` | Define what users are actually trying to do. | `v1-core-experience.md` | locked |
+| `G3 Experience Spec` | Describe how Glade behaves in those scenes. | `v1-core-experience.md` | active, draft not locked |
 | `G4 Object Model` | Define product objects and source of truth. | `v1-core-experience.md`, `local-memory-architecture.md` | partial |
 | `G5 Flow States` | Define entry, action, feedback, exit, and failure states. | `v1-core-experience.md` | partial |
 | `G6 Acceptance` | Define product checks before code. | `v1-acceptance-and-milestones.md` | partial |
@@ -59,7 +68,7 @@ No product code should be written for a major feature until the relevant gates h
 
 Before implementing a major product feature, the feature must have:
 
-- a named user scene
+- a named user scene, ability module role, or interface orchestration role
 - an in-scope / out-of-scope boundary
 - a source-of-truth rule
 - at least one key flow with failure behavior
@@ -141,7 +150,7 @@ Reopen this step if:
 
 ## Step 1: Core V1 Usage Scenes
 
-Status: `active`
+Status: `locked`
 
 Primary documents:
 
@@ -150,42 +159,53 @@ Primary documents:
 
 Purpose:
 
-Name the major situations where users use Glade.
+Name the major situations where users use Glade, then sort them into ability modules and interface orchestration functions.
 
 This step is about user intent, not UI mechanics.
 
-Current scene candidates:
+Locked Step 1 product hierarchy:
 
-- `Raw Input`
-- `Light Handling During Input`
-- `Raw Recall`
-- `Output Views`
-- `Composed Working Surface`
+Ability modules:
+
+- `Input / Raw Capture`
+- `Agent-Assisted Shaping`
+- `Output / View / Output Lens`
+- `Life Rendering / Digest`
+- `Recall / Raw Recall`
+- `Memory Agent / Reflective Recall`
+
+Interface orchestration functions:
+
+- `Canopy Flow`
+- `Limpid Zen`
+- `Memory Flora`
 
 Checks:
 
-- Each scene begins with a real user intention.
-- Each scene can be described without naming a database table, API, script, or AI implementation.
-- Each scene says what the user is trying to accomplish.
-- Each scene says what success feels like.
-- Each scene separates raw input, output views, storage form, and Agent behavior.
-- Each scene says whether it is v1 core, v1 support, or later.
+- Each ability module says what user need it serves and what capability it exposes.
+- Each ability module says whether it is foundation-level or advanced-level.
+- Each interface orchestration function says which modules it coordinates and what kind of user state it serves.
+- Interface orchestration functions coordinate modules without owning their internal source-of-truth rules.
+- Larger modules can be decomposed into plugins or micro-capabilities without changing the outer product model.
+- Each item can be described without naming a database table, API, script, or AI implementation.
+- Each item separates raw material, derived output, storage form, Agent behavior, and UI layout.
+- Agent-assisted shaping is mapped by dimensions, not by a small set of chat examples.
 - No scene depends on unresolved UI details such as exact buttons or slash commands.
 
 Pass condition:
 
-- The scene list is accepted as the v1 macro scene set.
-- Every later design section can point back to one or more scenes.
+- The product hierarchy is accepted as the v1 macro model.
+- Every later design section can point back to an ability module, an interface orchestration function, or an internal plugin boundary.
 
 Reopen this step if:
 
-- a new product surface appears without a scene
+- a new product surface appears without a module role, interface role, or plugin boundary
 - a feature starts driving the product instead of a user situation
-- input form, storage form, and output view are mixed again
+- input form, storage form, output lens, Agent shaping, and surface structure are mixed again
 
 ## Step 2: V1 Core Experience Spec
 
-Status: `draft exists, needs rewrite after Step 1 locks`
+Status: `draft updated from locked Step 1 hierarchy, not locked`
 
 Primary document:
 
@@ -198,11 +218,14 @@ Describe how Glade behaves across the locked scenes.
 Checks:
 
 - The spec starts from the accepted scene set.
-- The default surface is raw input, unless a later decision changes this explicitly.
+- The spec treats `Input / Raw Capture`, `Output / View`, and `Recall` as foundation ability modules.
+- The spec treats `Agent-Assisted Shaping`, `Life Rendering / Digest`, and `Memory Agent / Reflective Recall` as advanced ability modules.
+- The spec treats `Canopy Flow`, `Limpid Zen`, and `Memory Flora` as interface orchestration functions, not as data owners.
 - The spec does not assume `Today` is the only home concept.
-- The spec explains how output views relate to raw material.
+- The spec explains how output lens views relate to raw material.
 - The spec explains how raw recall works.
-- The spec keeps Agent harness details out unless they are necessary to protect user experience.
+- The spec explains how internal plugins can extend modules without tangling them.
+- The spec keeps Agent tool, permission, and harness details out unless they are necessary to protect user experience.
 - The spec stays at product-behavior level before detailed UI layout.
 
 Pass condition:
@@ -213,7 +236,7 @@ Reopen this step if:
 
 - a flow cannot be explained without guessing
 - UI details are compensating for unclear product behavior
-- output views start acting like writing forms
+- output lens views start acting like writing forms
 
 ## Step 3: Boundaries And Anti-Goals
 
@@ -272,15 +295,21 @@ Objects needing clear definitions:
 
 - `Raw Entry`
 - `Raw Log`
+- `Raw Signal`
 - `Daily Note`
 - `Local File`
 - `Tag`
 - `Long Stream`
-- `Output View`
+- `Output Lens View`
 - `Search Result`
 - `Task Candidate`
 - `Light Review`
 - `Signal`
+- `Agent-Assisted Shaping Output`
+- `Life Rendering Output`
+- `Memory Agent Output`
+- `Module Plugin`
+- `External Context`
 
 Checks:
 
@@ -292,6 +321,10 @@ Checks:
 - Long streams reference raw material without replacing it.
 - Tags classify or retrieve material without becoming the main writing form.
 - Derived objects cannot silently rewrite raw material.
+- Agent shaping outputs remain drafts, candidates, links, or derived objects until the user accepts a change.
+- Life Rendering and Memory Agent outputs remain derived and source-linked.
+- Module plugins do not become independent source-of-truth systems.
+- External context is source-aware and distinguishable from user-written raw material.
 
 Pass condition:
 
@@ -317,13 +350,17 @@ Turn scenes into behavior.
 
 Required flows:
 
-- raw input
-- light handling during input
+- raw capture
+- transient handling during capture
 - raw recall by text search
 - raw recall by tag search
 - raw recall by historical file browsing
 - opening an output view
 - returning from an output view to raw source material
+- opening Canopy Flow with several module cards
+- entering Limpid Zen with nonessential modules hidden
+- browsing Memory Flora through output and recall material
+- enabling, disabling, or deferring a module plugin at the product-concept level
 - optional task candidate handling
 - optional light review handling
 
@@ -344,6 +381,7 @@ Checks:
 - Saving raw material is never blocked by Agent behavior.
 - Search failure does not erase or hide raw material.
 - Output view failure still leaves raw material recoverable.
+- Plugin failure does not break the owning module's core behavior.
 
 Pass condition:
 
@@ -365,7 +403,9 @@ Future primary document:
 
 Purpose:
 
-Design Agent-assisted processing separately from macro product scenes.
+Design the Agent behavior contract for the core advanced function.
+
+Step 1 may define Agent-assisted shaping as central to Glade. Step 6 defines how it is allowed to operate.
 
 Topics to cover later:
 
@@ -376,22 +416,24 @@ Topics to cover later:
 - what can run in the background
 - what happens on Agent failure
 - how scripts and Agent judgment divide work
+- how Agent shaping calls module interfaces instead of swallowing module logic
 
 Checks before this step starts:
 
-- raw input and raw recall scenes are locked
+- ability module roles and interface orchestration roles are locked
 - source-of-truth rules are locked
-- output view concept is clear
+- output lens concept is clear
 
 Pass condition:
 
 - Agent behavior cannot silently rewrite raw material.
 - Agent behavior cannot publish important structure without the needed user confirmation.
 - Agent failure cannot block basic recording or recall.
+- Agent behavior cannot hide which module or source material it used.
 
 Reopen this step if:
 
-- Agent behavior becomes the default input route
+- Agent behavior becomes the only input route
 - Agent behavior hides its source material
 - Agent tools become too broad for the user's trust model
 
@@ -479,19 +521,23 @@ Sketch the interface only after behavior is stable enough.
 
 Required surfaces to represent:
 
-- sparse sidebar
-- raw input card
-- output view card
-- Agent chat card
+- `Canopy Flow`
+- `Limpid Zen`
+- `Memory Flora`
+- raw capture card
+- output lens card
+- Agent-assisted shaping card or sidebar
 - recall or history card
+- transient handling cards such as tag selection, stream intent, or handling notes
 
 Checks:
 
 - The sketch reflects locked scenes.
 - The sketch does not introduce new unapproved workflows.
-- The sketch keeps raw input simple.
-- The sketch separates input, output, and Agent chat.
-- The sketch shows how source material can be reached from output views.
+- The sketch keeps raw capture simple.
+- The sketch shows Agent-assisted shaping as core but not chat-only.
+- The sketch separates ability modules, interface orchestration functions, and transient handling cards.
+- The sketch shows how source material can be reached from output lens views.
 - Exact drag mechanics are not over-specified unless they affect product behavior.
 
 Pass condition:
@@ -501,8 +547,8 @@ Pass condition:
 Reopen this step if:
 
 - visual layout starts driving product meaning
-- output views start looking like required input forms
-- Agent chat becomes visually dominant without a product decision
+- output lens views start looking like required input forms
+- Agent chat becomes the only way to record or recover material
 
 ## Step 10: Product Acceptance Checklist
 
@@ -518,12 +564,18 @@ Turn product intent into checks.
 
 Required acceptance categories:
 
-- raw input
+- raw capture
 - raw log or raw local file persistence
-- light handling during input
+- transient handling during capture
 - raw recall through search
 - raw recall through browsing
-- output views
+- output lens views
+- Agent-assisted shaping
+- Life Rendering / Digest
+- Memory Agent / Reflective Recall
+- interface orchestration functions
+- internal plugin boundaries
+- module boundaries
 - source backlinks
 - product feel
 - failure behavior
@@ -556,11 +608,13 @@ Primary document:
 
 Current draft milestones:
 
-- `M1 Raw Input + Raw Log`
+- `M1 Raw Capture + Raw Log`
 - `M2 Raw Recall`
-- `M3 Output View Foundation`
-- `M4 Task Candidates + Light Review`
-- `M5 Long Streams + Tag Library`
+- `M3 Agent-Assisted Shaping Foundation`
+- `M4 Output Lens Foundation`
+- `M5 Task Candidates + Light Review`
+- `M6 Long Streams + Tag Library`
+- later milestones for `Life Rendering / Digest`, `Memory Agent / Reflective Recall`, and richer module plugins
 
 Checks:
 
@@ -569,14 +623,16 @@ Checks:
 - Each milestone preserves local-first behavior.
 - The first milestone proves raw capture.
 - Later milestones do not require rebuilding raw storage.
-- Agent-heavy features do not precede raw input and raw recall.
+- Agent-assisted shaping composes raw capture and recall rather than replacing them.
+- Agent-assisted behavior does not precede the foundation abilities it needs.
+- New subfeatures enter through module or plugin interfaces rather than by hard-coding across surfaces.
 
 Open questions:
 
-- Should output view foundation come before or after raw recall?
-- Is light review v1 core or v1.1?
+- How small can the first useful Agent-assisted shaping milestone be?
+- Which Agent shaping dimensions must be v1 and which stay later?
 - Is long stream v1 implementation scope or v1 design scope?
-- Which milestone first needs Agent harness design?
+- Which milestone first needs the full Agent harness design?
 
 Pass condition:
 
@@ -592,7 +648,7 @@ Reopen this step if:
 
 Before implementing v1 product code, confirm all of this:
 
-- Step 1 scenes are locked.
+- Step 1 product hierarchy is locked.
 - Step 2 experience spec is updated from those scenes.
 - Step 3 boundaries are usable as rejection rules.
 - Step 4 source-of-truth rules are explicit.
@@ -601,12 +657,12 @@ Before implementing v1 product code, confirm all of this:
 - Step 10 acceptance checks exist.
 - Step 11 milestone order is accepted.
 
-Agent-heavy work additionally requires:
+Agent-assisted shaping work additionally requires:
 
 - Step 6 Agent behavior contract.
 - A tool and permission model.
 - A confirmation model for user-visible changes.
-- A failure model that preserves raw input and recall.
+- A failure model that preserves raw capture and recall.
 
 ## Documentation Roles
 
@@ -648,11 +704,10 @@ Do not bury important design changes only in chat.
 
 ## Current Next Action
 
-Finish Step 1.
+Proceed to Step 2 review.
 
 Immediate task:
 
-- Confirm the five v1 usage scenes.
-- For each scene, add a short user story.
-- Mark each scene as `v1 core`, `v1 support`, or `later`.
-- Then rewrite `v1-core-experience.md` around the locked scene set.
+- Review `v1-core-experience.md` against the locked Step 1 hierarchy.
+- Tighten the behavior spec for the six ability modules and three interface orchestration functions.
+- Keep Agent harness, storage schema, exact UI controls, and plugin implementation details in their later steps.

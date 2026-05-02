@@ -1,16 +1,16 @@
 # Glade V1 Low-Fidelity Wireframes
 
-Last updated: 2026-04-29
+Last updated: 2026-05-01
 
 These are structure sketches, not visual design finals.
 
 Current status: provisional.
 
-The macro scene model changed on 2026-04-29:
+The macro product model changed on 2026-05-01:
 
-- raw input is the default product surface
-- output views are v1 core
-- input and output can coexist as cards on one working background
+- six ability modules define what Glade can do: `Input / Raw Capture`, `Agent-Assisted Shaping`, `Output / View`, `Life Rendering / Digest`, `Recall`, and `Memory Agent / Reflective Recall`
+- three interface orchestration functions define how the user works with those abilities: `Canopy Flow`, `Limpid Zen`, and `Memory Flora`
+- module subfeatures should become plugins where practical: installable, removable, switchable, and replaceable
 - detailed movement, layout, and card mechanics belong to later UI design
 
 This document should therefore be treated as a rough interaction reference, not as a locked screen plan.
@@ -21,38 +21,64 @@ The current renderer prototype already has a calm garden tone.
 
 What must change in v1 is not the mood first. It is the hierarchy:
 
-- raw input becomes the default surface
+- raw capture stays simple and always available
 - search becomes a clear recovery tool
 - raw history/file browsing joins search as a recovery tool
-- long streams, calendars, task views, reviews, and search results are output cards
-- Agent chat is a card, but Agent behavior is specified separately
+- long streams, calendars, task candidate views, reviews, search results, and history are output lens cards
+- Agent-assisted shaping is easy to summon and can work over one or many materials
+- Agent chat is only one possible interface for shaping
+- transient handling cards such as tags can appear and disappear without becoming scenes
+- Canopy Flow is the open workbench for mixed-module work
+- Limpid Zen is the focused flow with nonessential modules hidden
+- Memory Flora is the output-centered memory browsing surface
 - fixed equal-weight three-panel logic goes away
 
-## Macro Surface Direction
+## Macro Surface Direction: Canopy Flow
 
 ```text
 +--------------------------------------------------------------------------------------+
-| [icons]  Glade working background                                                    |
+| [icons]  Canopy Flow                                                                  |
 |                                                                                      |
 |         +-------------------------------+       +--------------------------------+   |
-|         | Raw Input                     |       | Agent Chat                     |   |
+|         | Raw Capture                   |       | Agent-Assisted Shaping         |   |
 |         |                               |       |                                |   |
-|         | blank writing surface         |       | optional handling requests     |   |
+|         | short / messy / raw signal    |       | clarify / organize / connect   |   |
 |         |                               |       |                                |   |
 |         +-------------------------------+       +--------------------------------+   |
 |                                                                                      |
 |                         +------------------------------------------------------+     |
-|                         | Output View Card                                     |     |
-|                         | long stream / calendar / task view / history / search |     |
+|                         | Output / Recall / Memory Card                        |     |
+|                         | long stream / calendar / task / history / search      |     |
 |                         +------------------------------------------------------+     |
 +--------------------------------------------------------------------------------------+
 ```
 
 ### Why this direction matters
 
-- The user can write without first choosing a document type.
-- Output views are present as views, not as writing formats.
-- The sidebar chooses which surfaces appear, while exact placement is later UI design.
+- The user can capture raw material without first choosing a document type.
+- Agent-assisted shaping is present as the core advanced help path, not as a generic chat replacement.
+- Output lenses are present as views, not as writing formats.
+- Canopy Flow holds modules together, while exact placement is later UI design.
+
+## Additional Interface Directions
+
+### Limpid Zen
+
+Limpid Zen should be sketched later as a focused mode:
+
+- one main material or task is visible
+- nonessential output lenses and handling cards are hidden
+- Agent help is available without turning the surface into chat
+- the mode does not create a separate data model
+
+### Memory Flora
+
+Memory Flora should be sketched later as a memory browsing surface:
+
+- output lenses and recall views are central
+- Memory Agent and Life Rendering can help organize browsing
+- every rendered or reflective view keeps a path back to source records
+- browsing past memory does not become a dashboard
 
 ## Earlier Today-Centered Sketches
 
@@ -207,8 +233,12 @@ The sketches below remain useful as examples of possible output or history views
 
 ## Structural Rules For Implementation
 
-- Keep raw input as the simplest default card.
-- Treat long streams, calendars, task views, search results, history, and reviews as output cards.
-- Keep output views downstream from raw material.
+- Keep raw capture as the simplest foundation card.
+- Treat long streams, calendars, task candidate views, search results, history, and reviews as output lens cards.
+- Keep output lens views downstream from raw material.
 - Do not return to fixed equal-width primary panels.
-- Keep Agent chat conceptually separate from raw input and output views until the Agent harness design is written.
+- Treat Agent-assisted shaping as the core advanced function, but do not make chat the only input route.
+- Keep transient handling cards, such as tag selection, temporary and optional.
+- Keep module responsibilities separate even when cards appear together.
+- Treat Canopy Flow, Limpid Zen, and Memory Flora as interface orchestration surfaces, not as data owners.
+- Add future lens, digest, shaping, and memory capabilities as module plugins where practical.
